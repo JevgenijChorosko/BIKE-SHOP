@@ -37,6 +37,11 @@ export default function Header(props) {
           <li>About Us</li>
           <li>Contact</li>
           <li>Chart</li>
+          <li>
+            <a href="login.html" className="button">
+              Sign in
+            </a>
+          </li>
         </ul>
         <FaOpencart
           onClick={() => setCartOpen((cartOpen = !cartOpen))}

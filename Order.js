@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { Component } from "react";
 import { FaTrash } from "react-icons/fa";
 
@@ -6,12 +7,13 @@ export class Order extends Component {
     return (
       <div className="item">
         <img src={"./img1/" + this.props.item.img} />
-        {/* <img src="url" alt="description of image"></img> */}
         <h2>{this.props.item.title}</h2>
         <b>{this.props.item.price}$</b>
         <FaTrash
           className="delete-icon"
-          onClick={() => this.props.onDelete(this.props.item.id)}
+          onClick={() =>
+            this.props.onDelete(this.props.onDelete(this.props.item.id))
+          }
         />
       </div>
     );

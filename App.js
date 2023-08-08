@@ -5,6 +5,15 @@ import Items from "./components/Items";
 import Categories from "./components/Categories";
 import ShowFullItem from "./components/ShowFullItem";
 
+// function App() {
+//   const [data, setData] = useState(null);
+
+//   useEffect(() => {
+//     fetch(`/api`)
+//       .then((response) => response.json())
+//       .then((response) => setData(response.message));
+//   }, []);
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -91,14 +100,15 @@ class App extends React.Component {
     this.state.currentItems = this.state.items;
     this.addToOrder = this.addToOrder.bind(this);
     this.deleteOrder = this.deleteOrder.bind(this);
-    this.deleteOrder = this.chooseCategory.bind(this);
+    this.chooseCategory = this.chooseCategory.bind(this);
     this.onShowItem = this.onShowItem.bind(this);
   }
+
   render() {
     return (
       <div className="wrapper">
         <Header orders={this.state.orders} onDelete={this.deleteOrder} />
-        <Categories chooseCategory={this.chooseCategory} />
+        <Categories categoryClick={this.chooseCategory} />
         <Items
           onShowItem={this.onShowItem}
           items={this.state.currentItems}
@@ -113,8 +123,24 @@ class App extends React.Component {
           />
         )}
         <Footer />
+
+        {/* <p>{!data ? "Loading..." : data}</p> */}
       </div>
     );
+  }
+
+  chooseCategory(category) {
+    console.log(category);
+    if (category === "all") {
+      this.setState({ currentItems: this.state.items });
+      return;
+    }
+
+    this.setState({
+      currentItems: this.state.items.filter(
+        (el) => el.category === category.key
+      ),
+    });
   }
 
   deleteOrder(id) {
@@ -124,17 +150,6 @@ class App extends React.Component {
   onShowItem(item) {
     this.setState({ fullItem: item });
     this.setState({ showFullItem: !this.state.showFullItem });
-  }
-
-  chooseCategory(category) {
-    if (category === "all") {
-      this.setState({ currentItems: this.state.items });
-      return;
-    }
-
-    this.setState({
-      currentItems: this.state.items.filter((el) => el.category === category),
-    });
   }
 
   addToOrder(item) {
